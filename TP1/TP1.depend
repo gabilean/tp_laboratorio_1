@@ -22,3 +22,16 @@
 	<stdlib.h>
 	"Funciones.h"
 
+1536643030 source:/home/gabilean/UTN/lab_prog_1/tp_laboratorio_1/TP1/Funciones.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Funciones.h"
+
+1536643004 /home/gabilean/UTN/lab_prog_1/tp_laboratorio_1/TP1/Funciones.h
+
+1536635566 source:/home/gabilean/UTN/lab_prog_1/tp_laboratorio_1/TP1/main.c
+	<stdio.h>
+	<stdlib.h>
+	"Funciones.h"
+
