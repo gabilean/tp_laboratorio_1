@@ -19,7 +19,9 @@ int arrayEmployee_assignID(void);
 int arrayEmployee_addEmployee(Employee* list, int len, int id, char* name, char* lastName, float salary, int sector);
 int arrayEmployee_findEmployee(Employee* list, int len, int id);
 int arrayEmployee_removeEmployee(Employee* list, int len, int id);
+int arrayEmployee_modifyEmployee(Employee* list, int len, int id);
 int arrayEmployee_sortEmployees(Employee* list, int len, int order);
 int arrayEmployee_printEmployees(Employee* list, int len);
+int arrayEmployee_printSalariesEmployee(Employee* list, int len);
 
 #endif // ARRAYEMPLOYEES_H_INCLUDED

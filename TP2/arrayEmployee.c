@@ -3,7 +3,7 @@
 #include <string.h>
 #include "arrayEmployees.h"
 #include "myLibrary.h"
-#define ELEMENTS 1
+#define ELEMENTS 4
 #define TRUE 1
 #define FALSE 0
 
@@ -13,6 +13,7 @@ void arrayEmployee_menuEmployee(void)
     arrayEmployee_initEmployees(empleados, ELEMENTS);
 
     int opcion = 0;
+    int opcionInformes;
 
     char name[51];
     char lastName[51];
@@ -51,12 +52,39 @@ void arrayEmployee_menuEmployee(void)
                     {
                         printf("\nDebe ingresar al menos un empleado!");
                     }
-                break;
+                    break;
                 case 3:
+                    if(flag != 0)
+                    {
+                      arrayEmployee_modifyEmployee(empleados, ELEMENTS, arrayEmployee_obtainID());
+                    }
+                    else
+                    {
+                        printf("\nDebe ingresar al menos un empleado!");
+                    }
 
-                break;
+                    break;
                 case 4:
-                    arrayEmployee_printEmployees(empleados, ELEMENTS);
+
+                    printf("\n1. Por apellido y sector");
+                    printf("\n2. Total y promedio de salarios");
+                    printf("\n\nOpcion:");
+                    scanf("%d", &opcionInformes);
+
+                    switch(opcionInformes)
+                    {
+                        case 1:
+                            arrayEmployee_sortEmployees(empleados, ELEMENTS, 1);
+                            arrayEmployee_printEmployees(empleados, ELEMENTS);
+                            break;
+                        case 2:
+                            arrayEmployee_printSalariesEmployee(empleados, ELEMENTS);
+                            break;
+                        default:
+                            printf("\nIngreso una opcion no valida! Saliendo...");
+                    }
+
+
                     break;
                 default:
                     opcion = 5;
@@ -71,7 +99,7 @@ int arrayEmployee_initEmployees(Employee* list, int len)
 
     if(list != NULL && len > 0)
     {
-        for(i=0; i<=len; i++)
+        for(i=0; i<len; i++)
         {
             list[i].isEmpty = TRUE;
         }
@@ -182,13 +210,87 @@ int arrayEmployee_removeEmployee(Employee* list, int len, int id)
 
 int arrayEmployee_modifyEmployee(Employee* list, int len, int id)
 {
+    int opcion;
+    int retorno = -1;
 
+    printf("\n1. Nombre");
+    printf("\n2. Apellido");
+    printf("\n3. Salario");
+    printf("\n4. Sector");
+    printf("\nOpcion: ");
+    scanf("%d", &opcion);
+
+    switch(opcion)
+    {
+        case 1:
+            myLibrary_getNombre(list[id].name, 51, "\nIngrese nombre: ", "Ingrese solo letras!", 1);
+            break;
+        case 2:
+            myLibrary_getNombre(list[id].lastName, 51, "\nIngrese apellido: ", "Ingrese solo letras!", 1);
+            break;
+        case 3:
+            list[id].salary = myLibrary_getFloat("\nIngrese salario: ");
+            break;
+        case 4:
+            printf("\nIngrese sector: ");
+            scanf("%d", &list[id].sector);
+            break;
+        default:
+            printf("\nIngreso una opcion no valida! Saliendo...");
+    }
+
+    retorno = 0;
+
+    return retorno;
 }
 
-/*int arrayEmployee_sortEmployees(Employee* list, int len, int order)
+int arrayEmployee_sortEmployees(Employee* list, int len, int order)
 {
+    Employee auxEmpleado;
+    int i;
+    int j;
+    int retorno = -1;
 
-}*/
+    if(order == 0)
+    {
+        for(i=0; i<len-1; i++)
+        {
+            for(j=i+1; j<len; j++)
+            {
+                if(strcmp(list[i].lastName, list[j].lastName) < 0)
+                {
+                    auxEmpleado = list[j];
+                    list[j] = list[i];
+                    list[i] = auxEmpleado;
+
+                    retorno = 0;
+                }
+            }
+        }
+    }
+
+    if(order == 1)
+    {
+        for(i=0; i<len-1; i++)
+        {
+            for(j=i+1; j<len; j++)
+            {
+                if(strcmp(list[i].lastName, list[j].lastName) > 0)
+                {
+                    auxEmpleado = list[i];
+                    list[i] = list[j];
+                    list[j] = auxEmpleado;
+
+                    retorno = 0;
+                }
+            }
+        }
+    }
+
+
+    return retorno;
+}
+
 int arrayEmployee_printEmployees(Employee* list, int len)
 {
     int retorno = -1;
@@ -198,13 +300,47 @@ int arrayEmployee_printEmployees(Employee* list, int len)
     {
         printf("\n\nListado de empleados\n\n");
 
-        for(i=0; i<=len; i++)
+        for(i=0; i<len; i++)
         {
             if(list[i].isEmpty != TRUE)
             {
                 printf("ID: %d - Nombre: %s - Apellido: %s - Salario: %.2f - Sector: %d - Empty: %d\n", list[i].id, list[i].name, list[i].lastName, list[i].salary, list[i].sector, list[i].isEmpty);
             }
         }
+
+        retorno = 0;
+    }
+    return retorno;
+}
+
+int arrayEmployee_printSalariesEmployee(Employee* list, int len)
+{
+    int retorno = 0;
+    int acumulador = 0;
+    float suma = 0;
+    float promedio = 0;
+    int i;
+
+    if(list != NULL && len >= 0)
+    {
+        for(i=0; i<len; i++)
+        {
+            suma = suma + list[i].salary;
+        }
+
+        promedio = suma/len;
+
+        for(i=0; i<len; i++)
+        {
+            if(list[i].salary > promedio)
+            {
+                acumulador++;
+            }
+        }
+
+        printf("\nSuma total de salarios: %f", suma);
+        printf("\nPromedio salarios: %f", promedio);
+        printf("\nCantidad de salarios que superan el promedio: %d", acumulador);
 
         retorno = 0;
     }
