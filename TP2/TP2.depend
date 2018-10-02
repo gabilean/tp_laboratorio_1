@@ -23,3 +23,27 @@
 	<stdlib.h>
 	"myLibrary.h"
 
+1538449527 source:/home/gabilean/UTN/lab_prog_1/tp_laboratorio_1/TP2/arrayEmployee.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"arrayEmployees.h"
+	"myLibrary.h"
+
+1538009753 /home/gabilean/UTN/lab_prog_1/tp_laboratorio_1/TP2/arrayEmployees.h
+
+1538441270 /home/gabilean/UTN/lab_prog_1/tp_laboratorio_1/TP2/myLibrary.h
+
+1538009753 source:/home/gabilean/UTN/lab_prog_1/tp_laboratorio_1/TP2/main.c
+	<stdio.h>
+	<stdlib.h>
+	"arrayEmployees.h"
+	"myLibrary.h"
+
+1538449334 source:/home/gabilean/UTN/lab_prog_1/tp_laboratorio_1/TP2/myLibrary.c
+	<stdio_ext.h>
+	<string.h>
+	<ctype.h>
+	<stdlib.h>
+	"myLibrary.h"
+

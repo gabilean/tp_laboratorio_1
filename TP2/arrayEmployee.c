@@ -3,9 +3,14 @@
 #include <string.h>
 #include "arrayEmployees.h"
 #include "myLibrary.h"
-#define ELEMENTS 4
+#define ELEMENTS 2
 #define TRUE 1
 #define FALSE 0
+
+/** \brief  Muestra menú ABM de empleados
+ * \param void
+ * \return void
+ */
 
 void arrayEmployee_menuEmployee(void)
 {
@@ -37,12 +42,13 @@ void arrayEmployee_menuEmployee(void)
                 case 1:
                     myLibrary_getNombre(name, 51, "\nIngrese nombre: ", "\nIngrese solo letras!", 1);
                     myLibrary_getNombre(lastName, 51, "\nIngrese apellido: ", "\nIngrese solo letras!", 1);
-                    salary = myLibrary_getFloat("\nIngrese salario: ");
+                    myLibrary_getFloat(&salary, 100, "\nIngrese salario:", "Ingrese solo numeros!", 1);
                     printf("\nIngrese sector: ");
                     scanf("%d", &sector);
                     arrayEmployee_addEmployee(empleados, ELEMENTS, arrayEmployee_assignID(), name, lastName, salary, sector);
                     flag = 1;
                 break;
+
                 case 2:
                     if(flag != 0)
                     {
@@ -53,6 +59,7 @@ void arrayEmployee_menuEmployee(void)
                         printf("\nDebe ingresar al menos un empleado!");
                     }
                     break;
+
                 case 3:
                     if(flag != 0)
                     {
@@ -64,33 +71,47 @@ void arrayEmployee_menuEmployee(void)
                     }
 
                     break;
+
                 case 4:
 
-                    printf("\n1. Por apellido y sector");
-                    printf("\n2. Total y promedio de salarios");
-                    printf("\n\nOpcion:");
-                    scanf("%d", &opcionInformes);
-
-                    switch(opcionInformes)
+                    if(flag != 0)
                     {
-                        case 1:
-                            arrayEmployee_sortEmployees(empleados, ELEMENTS, 1);
-                            arrayEmployee_printEmployees(empleados, ELEMENTS);
-                            break;
-                        case 2:
-                            arrayEmployee_printSalariesEmployee(empleados, ELEMENTS);
-                            break;
-                        default:
-                            printf("\nIngreso una opcion no valida! Saliendo...");
+                        printf("\n1. Por apellido y sector");
+                        printf("\n2. Total y promedio de salarios");
+                        printf("\n\nOpcion:");
+                        scanf("%d", &opcionInformes);
+
+                        switch(opcionInformes)
+                        {
+                            case 1:
+                                arrayEmployee_sortEmployees(empleados, ELEMENTS, 1);
+                                arrayEmployee_printEmployees(empleados, ELEMENTS);
+                                break;
+                            case 2:
+                                arrayEmployee_printSalariesEmployee(empleados, ELEMENTS);
+                                break;
+                            default:
+                                printf("\nIngreso una opcion no valida! Saliendo...");
+                        }
                     }
-
-
+                    else
+                    {
+                        printf("\nDebe ingresar al menos un empleado!");
+                    }
                     break;
+
                 default:
                     opcion = 5;
             }
         }while(opcion != 5);
 }
+
+/** \brief  Indica que todas las posiciones en el array estan libres, esta funcion pone la bandera (isEmpty) en TRUE
+ * en todas las posiciones del array
+ * \param list Employee* Puntero al array de empleados
+ * \param len int largo del array
+ * \return int return (-1) es error [Largo invalido o puntero nulo] - (0) OK
+ */
 
 int arrayEmployee_initEmployees(Employee* list, int len)
 {
@@ -109,6 +130,12 @@ int arrayEmployee_initEmployees(Employee* list, int len)
 
     return retorno;
 }
+
+/** \brief  Devuelve una posición del array de empleados que tenga la bandera isEmpty en TRUE
+ * \param list Employee* Puntero al array de empleados
+ * \param len int largo del array
+ * \return int return (-1) es error [Largo invalido o puntero nulo] - (0) OK
+ */
 
 int arrayEmployee_isEmpty(Employee* list, int len)
 {
@@ -130,6 +157,11 @@ int arrayEmployee_isEmpty(Employee* list, int len)
     return retorno;
 }
 
+/** \brief Pide un id
+ * \param void
+ * \return int return (-1) es error
+ */
+
 int arrayEmployee_obtainID(void)
 {
     int retorno = -1;
@@ -140,12 +172,29 @@ int arrayEmployee_obtainID(void)
     return retorno;
 }
 
+/** \brief Asigna un id
+ * \param void
+ * \return int return Primera devolucion es 0, luego incrementa
+ */
+
 int arrayEmployee_assignID(void)
 {
     static int id = 0;
 
     return id++;
 }
+
+/** \brief Agrega en un array de empleados existente los valores recibidos como parámetro en la primer
+ *   posición libre
+ * \param list employee*
+ * \param len int
+ * \param id int
+ * \param name[] char
+ * \param lastName[] char
+ * \param salary float
+ * \param sector int
+ * \return int return (-1) es error [Largo invalido o puntero nulo] - (0) OK
+ */
 
 int arrayEmployee_addEmployee(Employee* list, int len, int id, char* name, char* lastName, float salary, int sector)
 {
@@ -177,6 +226,13 @@ int arrayEmployee_addEmployee(Employee* list, int len, int id, char* name, char*
     return retorno;
 }
 
+/** \brief Busca un empleado recibiendo como parámetro de búsqueda su Id
+ * \param list Employee*
+ * \param len int
+ * \param id int
+ * \return int return (-1) es error [Largo invalido o puntero nulo]
+ */
+
 int arrayEmployee_findEmployee(Employee* list, int len, int id)
 {
     int i;
@@ -196,6 +252,13 @@ int arrayEmployee_findEmployee(Employee* list, int len, int id)
     return retorno;
 }
 
+/** \brief Elimina de manera lógica (isEmpty Flag en 1) un empleado recibiendo como parámetro su Id
+ * \param list Employee*
+ * \param len int
+ * \param id int
+ * \return int return (-1) es error [Largo invalido o puntero nulo] - (0) OK
+ */
+
 int arrayEmployee_removeEmployee(Employee* list, int len, int id)
 {
     int retorno = -1;
@@ -207,6 +270,13 @@ int arrayEmployee_removeEmployee(Employee* list, int len, int id)
     }
     return retorno;
 }
+
+/** \brief Modifica un empleado recibiendo como parámetro su Id
+ * \param list Employee*
+ * \param len int
+ * \param id int
+ * \return int return (-1) es error [Largo invalido o puntero nulo] - (0) OK
+ */
 
 int arrayEmployee_modifyEmployee(Employee* list, int len, int id)
 {
@@ -223,13 +293,13 @@ int arrayEmployee_modifyEmployee(Employee* list, int len, int id)
     switch(opcion)
     {
         case 1:
-            myLibrary_getNombre(list[id].name, 51, "\nIngrese nombre: ", "Ingrese solo letras!", 1);
+            myLibrary_getNombre(list[id].name, 51, "\nIngrese nombre: ", "\nIngrese solo letras!", 1);
             break;
         case 2:
-            myLibrary_getNombre(list[id].lastName, 51, "\nIngrese apellido: ", "Ingrese solo letras!", 1);
+            myLibrary_getNombre(list[id].lastName, 51, "\nIngrese apellido: ", "\nIngrese solo letras!", 1);
             break;
         case 3:
-            list[id].salary = myLibrary_getFloat("\nIngrese salario: ");
+            myLibrary_getFloat(&list[id].salary, 100, "\nIngrese salario: ", "\nIngrese solo numeros!", 1);
             break;
         case 4:
             printf("\nIngrese sector: ");
@@ -243,6 +313,13 @@ int arrayEmployee_modifyEmployee(Employee* list, int len, int id)
 
     return retorno;
 }
+
+/** \brief Ordena el array de empleados por apellido y sector de manera ascendente o descendente
+ * \param list Employee*
+ * \param len int
+ * \param id int
+ * \return int return (-1) es error [Largo invalido o puntero nulo] - (0) OK
+ */
 
 int arrayEmployee_sortEmployees(Employee* list, int len, int order)
 {
@@ -291,6 +368,12 @@ int arrayEmployee_sortEmployees(Employee* list, int len, int order)
     return retorno;
 }
 
+/** \brief Imprime el array de empleados de forma encolumnada
+ * \param list Employee*
+ * \param len int
+ * \return int return (-1) es error [Largo invalido o puntero nulo] - (0) OK
+ */
+
 int arrayEmployee_printEmployees(Employee* list, int len)
 {
     int retorno = -1;
@@ -304,7 +387,7 @@ int arrayEmployee_printEmployees(Employee* list, int len)
         {
             if(list[i].isEmpty != TRUE)
             {
-                printf("ID: %d - Nombre: %s - Apellido: %s - Salario: %.2f - Sector: %d - Empty: %d\n", list[i].id, list[i].name, list[i].lastName, list[i].salary, list[i].sector, list[i].isEmpty);
+                printf("ID: %d - Nombre: %s - Apellido: %s - Salario: %.2f - Sector: %d", list[i].id, list[i].name, list[i].lastName, list[i].salary, list[i].sector);
             }
         }
 
@@ -313,9 +396,15 @@ int arrayEmployee_printEmployees(Employee* list, int len)
     return retorno;
 }
 
+/** \brief Imprime total y promedio de salario de empleados
+ * \param list Employee*
+ * \param len int
+ * \return int return (-1) es error [Largo invalido o puntero nulo] - (0) OK
+ */
+
 int arrayEmployee_printSalariesEmployee(Employee* list, int len)
 {
-    int retorno = 0;
+    int retorno = -1;
     int acumulador = 0;
     float suma = 0;
     float promedio = 0;
