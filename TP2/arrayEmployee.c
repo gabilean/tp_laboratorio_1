@@ -3,7 +3,7 @@
 #include <string.h>
 #include "arrayEmployees.h"
 #include "myLibrary.h"
-#define ELEMENTS 2
+#define ELEMENTS 100
 #define TRUE 1
 #define FALSE 0
 
@@ -385,7 +385,7 @@ int arrayEmployee_printEmployees(Employee* list, int len)
         {
             if(list[i].isEmpty != TRUE)
             {
-                printf("ID: %d - Nombre: %s - Apellido: %s - Salario: %.2f - Sector: %d", list[i].id, list[i].name, list[i].lastName, list[i].salary, list[i].sector);
+                printf("ID: %d - Nombre: %s - Apellido: %s - Salario: %.2f - Sector: %d\n", list[i].id, list[i].name, list[i].lastName, list[i].salary, list[i].sector);
             }
         }
 
