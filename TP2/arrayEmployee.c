@@ -19,6 +19,7 @@ void arrayEmployee_menuEmployee(void)
 
     int opcion = 0;
     int opcionInformes;
+    int orden;
 
     char name[51];
     char lastName[51];
@@ -82,7 +83,8 @@ void arrayEmployee_menuEmployee(void)
                         switch(opcionInformes)
                         {
                             case 1:
-                                arrayEmployee_sortEmployees(empleados, ELEMENTS, 1);
+                                myLibrary_getInt(&orden, 10, "\nAscendente (1) o descendente (0): ", "\nIngrese solo numeros!", 1);
+                                arrayEmployee_sortEmployees(empleados, ELEMENTS, orden);
                                 arrayEmployee_printEmployees(empleados, ELEMENTS);
                                 break;
                             case 2:
