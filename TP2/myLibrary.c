@@ -5,6 +5,7 @@
 #include "myLibrary.h"
 
 static int getFloat(float* num);
+static int getInt(int* num);
 
 /** \brief Verifica si es entero
  * \param char str*
@@ -13,16 +14,21 @@ static int getFloat(float* num);
 
 int myLibrary_esInt(char* str)
 {
-    int i;
-    int retorno = 0;
+    int i = 0;
+    int retorno = -1;
 
     while(str[i] != '\0')
     {
         if(str[i] < '0' || str[i] > '9')
         {
-            retorno = -1;
+            break;
         }
         i++;
+
+        if(str[i] == '\0')
+        {
+            retorno = 0;
+        }
     }
 
     return retorno;
@@ -75,7 +81,7 @@ int myLibrary_esFloat(char* str)
 
 int myLibrary_esSoloLetras(char* str)
 {
-    int i;
+    int i = 0;
     int retorno = 1;
 
     while(str[i] != '\0')
@@ -97,7 +103,7 @@ int myLibrary_esSoloLetras(char* str)
 
 int myLibrary_esAlfaNumerico(char* str)
 {
-    int i;
+    int i = 0;
     int retorno = -1;
 
     while(str[i] != '\0')
@@ -140,7 +146,7 @@ int myLibrary_getString(char* pBuffer, int limite)
     return retorno;
 }
 
-/** \brief Verifica si es string y float
+/** \brief Obtiene un string y verifica si es float
  * \param float num*
  * \return int return (-1) es error [Largo invalido o puntero nulo] - (0) OK
  */
@@ -159,9 +165,28 @@ static int getFloat(float* num)
     return retorno;
 }
 
+/** \brief Obtiene un string y verifica si es float
+ * \param float num*
+ * \return int return (-1) es error [Largo invalido o puntero nulo] - (0) OK
+ */
+
+static int getInt(int* num)
+{
+    char bufferStr[100];
+    int retorno = -1;
+
+    if(myLibrary_getString(bufferStr, 100) == 0 && myLibrary_esInt(bufferStr) == 0)
+    {
+        *num = atoi(bufferStr);
+        retorno = 0;
+    }
+
+    return retorno;
+}
+
+
 /** \brief Pide un numero flotante, lo valida y lo guarda en la variable pasada por referencia
  * \param float num*
- * \param int limite
  * \param char msg*
  * \param char msgErr*
  * \param int reintentos
@@ -206,7 +231,7 @@ int myLibrary_getFloat(float* num, int limite, char* msg, char* msgErr, int rein
 int myLibrary_getInt(int* num, int limite, char* msg, char* msgErr, int reintentos)
 {
     int retorno=-1;
-    char bufferNumero[limite];
+    int bufferNumero;
 
     if(num != NULL && msg != NULL && msgErr != NULL && limite > 0 && reintentos >= 0)
     {
@@ -215,10 +240,10 @@ int myLibrary_getInt(int* num, int limite, char* msg, char* msgErr, int reintent
             __fpurge(stdin);
             reintentos--;
             printf("%s", msg);
-            if(myLibrary_getString(bufferNumero, limite) ==0 && myLibrary_esInt(bufferNumero))
+            if(getInt(&bufferNumero) == 0)
             {
 
-                *num = atoi(bufferNumero);
+                *num = bufferNumero;
                 retorno = 0;
                 break;
             }

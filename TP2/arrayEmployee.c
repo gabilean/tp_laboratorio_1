@@ -34,17 +34,15 @@ void arrayEmployee_menuEmployee(void)
         printf("\n3. Modificacion");
         printf("\n4. Informar");
         printf("\n5. Salir");
-        printf("\n\nOpcion: ");
-        scanf("%d", &opcion);
+        myLibrary_getInt(&opcion, 10, "\nOpcion: ", "\nIngrese solo un numero!", 1);
 
             switch(opcion)
             {
                 case 1:
                     myLibrary_getNombre(name, 51, "\nIngrese nombre: ", "\nIngrese solo letras!", 1);
                     myLibrary_getNombre(lastName, 51, "\nIngrese apellido: ", "\nIngrese solo letras!", 1);
-                    myLibrary_getFloat(&salary, 100, "\nIngrese salario:", "Ingrese solo numeros!", 1);
-                    printf("\nIngrese sector: ");
-                    scanf("%d", &sector);
+                    myLibrary_getFloat(&salary, 100, "\nIngrese salario: ", "Ingrese solo numeros!", 1);
+                    myLibrary_getInt(&sector, 100, "\nIngrese sector: ", "\nIngrese solo numeros!", 1);
                     arrayEmployee_addEmployee(empleados, ELEMENTS, arrayEmployee_assignID(), name, lastName, salary, sector);
                     flag = 1;
                 break;
@@ -427,8 +425,8 @@ int arrayEmployee_printSalariesEmployee(Employee* list, int len)
             }
         }
 
-        printf("\nSuma total de salarios: %f", suma);
-        printf("\nPromedio salarios: %f", promedio);
+        printf("\nSuma total de salarios: %.2f", suma);
+        printf("\nPromedio salarios: %.2f", promedio);
         printf("\nCantidad de salarios que superan el promedio: %d", acumulador);
 
         retorno = 0;
