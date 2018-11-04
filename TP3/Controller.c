@@ -163,7 +163,18 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+    FILE *pArchivo;
+    int retorno = -1;
+
+    pArchivo = fopen(path, "wb+");
+    if(!parser_EmployeeSavetoBinary(pArchivo, pArrayListEmployee))
+    {
+        retorno = 0;
+    }
+
+    fclose(pArchivo);
+
+    return retorno;
 }
 
 /**

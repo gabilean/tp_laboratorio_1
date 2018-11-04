@@ -36,6 +36,7 @@ int main()
                 break;
             case 2:
                 controller_loadFromBinary("data.bin",listaEmpleados);
+                printf("\nSize de la lista: %d", ll_len(listaEmpleados));
                 break;
             case 3:
                 controller_addEmployee(listaEmpleados);
@@ -47,7 +48,6 @@ int main()
                 controller_removeEmployee(listaEmpleados);
                 break;
             case 6:
-                //ll_sort(listaEmpleados, Employee_criterioSortNombre,0);
                 controller_showEmployees(listaEmpleados,ll_len(listaEmpleados));
                 break;
             case 7:
@@ -57,7 +57,7 @@ int main()
                 controller_saveAsText("dataBackup.csv", listaEmpleados);
                 break;
             case 9:
-                printf("\nGuardar binario");
+                controller_saveAsBinary("dataBackupB.bin", listaEmpleados);
                 break;
             case 10:
                 printf("\nSaliendo...");

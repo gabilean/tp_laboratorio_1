@@ -122,7 +122,7 @@
 
 1541346943 /home/gabilean/UTN2/Lab_Prog_1/Clase_19 25.10/CASCARA_TP3/TP3/Linux_64/parser.h
 
-1541358915 source:/home/gabilean/UTN2/tp_laboratorio_1/TP3/Controller.c
+1541367666 source:/home/gabilean/UTN2/tp_laboratorio_1/TP3/Controller.c
 	<stdio.h>
 	<stdlib.h>
 	"LinkedList.h"
@@ -134,16 +134,16 @@
 1541355535 /home/gabilean/UTN2/tp_laboratorio_1/TP3/Employee.h
 	"LinkedList.h"
 
-1541358974 /home/gabilean/UTN2/tp_laboratorio_1/TP3/parser.h
+1541367063 /home/gabilean/UTN2/tp_laboratorio_1/TP3/parser.h
 
-1541355647 source:/home/gabilean/UTN2/tp_laboratorio_1/TP3/Employee.c
+1541367517 source:/home/gabilean/UTN2/tp_laboratorio_1/TP3/Employee.c
 	"Employee.h"
 	"LinkedList.h"
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 
-1541358915 source:/home/gabilean/UTN2/tp_laboratorio_1/TP3/main.c
+1541369071 source:/home/gabilean/UTN2/tp_laboratorio_1/TP3/main.c
 	<stdio.h>
 	<stdlib.h>
 	"LinkedList.h"
@@ -152,9 +152,18 @@
 
 1541346943 /home/gabilean/UTN2/tp_laboratorio_1/TP3/Controller.h
 
-1541358950 source:/home/gabilean/UTN2/tp_laboratorio_1/TP3/parser.c
+1541368046 source:/home/gabilean/UTN2/tp_laboratorio_1/TP3/parser.c
 	<stdio.h>
 	<stdlib.h>
 	"LinkedList.h"
 	"Employee.h"
+
+1541351786 source:/home/gabilean/UTN2/tp_laboratorio_1/TP3/myLibrary.c
+	<stdio_ext.h>
+	<string.h>
+	<ctype.h>
+	<stdlib.h>
+	"myLibrary.h"
+
+1541351786 /home/gabilean/UTN2/tp_laboratorio_1/TP3/myLibrary.h
 

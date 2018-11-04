@@ -122,16 +122,16 @@ int parser_EmployeeSavetoText(FILE* pFile, LinkedList* pArrayListEmployee)
 int parser_EmployeeSavetoBinary(FILE* pFile, LinkedList* pArrayListEmployee)
 {
     Employee* pEmpleado = NULL;
-    FILE* pArchivo;
     int retorno = -1;
+    int i;
 
     if(pFile != NULL)
     {
-        while(!feof(pFile))
+        for(i=0; i< ll_len(pArrayListEmployee); i++)
         {
-            pEmpleado = Employee_new();
-            fwrite(pEmpleado, sizeof(Employee), 1, pFile);
-            ll_add(pArrayListEmployee, pEmpleado);
+            pEmpleado = ll_get(pArrayListEmployee,i);
+            fwrite(pEmpleado,sizeof(Employee), 1, pFile);
+            retorno = 0;
         }
 
         retorno = 0;
