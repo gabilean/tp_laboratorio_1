@@ -193,7 +193,7 @@ static int getInt(int* num)
  * \return int return (-1) es error [Largo invalido o puntero nulo] - (0) OK
  */
 
-int myLibrary_getFloat(float* num, int limite, char* msg, char* msgErr, int reintentos)
+int myLibrary_getFloatWithMessage(float* num, int limite, char* msg, char* msgErr, int reintentos)
 {
     int retorno=-1;
     float bufferNumero;
@@ -220,6 +220,22 @@ int myLibrary_getFloat(float* num, int limite, char* msg, char* msgErr, int rein
     return retorno;
 }
 
+/**
+
+*/
+
+int myLibrary_getIntAsCharReturnInt(char* str)
+{
+    int num = -1;
+
+    if(myLibrary_esInt(str) == 0)
+    {
+        num = atoi(str);
+    }
+
+    return num;
+}
+
 /** \brief Pide un numero entero, lo valida y lo guarda en la variable pasada por referencia
  * \param int num*
  * \param int limite
@@ -228,7 +244,8 @@ int myLibrary_getFloat(float* num, int limite, char* msg, char* msgErr, int rein
  * \param int reintentos
  * \return int return (-1) es error [Largo invalido o puntero nulo] - (0) OK
  */
-int myLibrary_getInt(int* num, int limite, char* msg, char* msgErr, int reintentos)
+
+int myLibrary_getIntWithMessage(int* num, int limite, char* msg, char* msgErr, int reintentos)
 {
     int retorno=-1;
     int bufferNumero;
@@ -242,7 +259,6 @@ int myLibrary_getInt(int* num, int limite, char* msg, char* msgErr, int reintent
             printf("%s", msg);
             if(getInt(&bufferNumero) == 0)
             {
-
                 *num = bufferNumero;
                 retorno = 0;
                 break;
@@ -291,7 +307,7 @@ int myLibrary_isValidLetras(char* pBuffer, int limite)
  * \return int return (-1) es error [Largo invalido o puntero nulo] - (0) OK
  */
 
-int myLibrary_getNombre(char* pNombre,int limite, char* msg, char* msgErr, int reintentos)
+int myLibrary_getNombreWithMessage(char* pNombre,int limite, char* msg, char* msgErr, int reintentos)
 {
     int retorno=-1;
     char bufferNombre[4096];

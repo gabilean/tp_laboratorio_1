@@ -47,6 +47,10 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="myLibrary.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="myLibrary.h" />
 		<Unit filename="parser.c">
 			<Option compilerVar="CC" />
 		</Unit>

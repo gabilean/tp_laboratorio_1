@@ -1,5 +1,6 @@
 #include "Employee.h"
 #include "LinkedList.h"
+#include "myLibrary.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,17 +25,19 @@ Employee* Employee_newConParametros(char* id, char* nombre, char* horasTrabajada
     int sueldoInt;
     int horasTrabajadasInt;
 
-    //validaciones con isValid (Una por cada tipo de dato)(Lo unico que hace es llamar a funciones que ya tengo hechas y devuelve si los datos ingresados son correctos)
-    idInt = atoi(id);
-    sueldoInt = atoi(sueldo);
-    horasTrabajadasInt = atoi(horasTrabajadas);
+    idInt = myLibrary_getIntAsCharReturnInt(id);
+    sueldoInt = myLibrary_getIntAsCharReturnInt(sueldo);
+    horasTrabajadasInt = myLibrary_getIntAsCharReturnInt(horasTrabajadas);
 
-    if(
-    !Employee_setId(this,idInt)&&
-    !Employee_setNombre(this,nombre)&&
-    !Employee_setHorasTrabajadas(this,horasTrabajadasInt)&&
-    !Employee_setSueldo(this,sueldoInt))
-        return this;
+    if(idInt != -1 && sueldoInt != -1 && horasTrabajadasInt != -1)
+    {
+        if(
+        !Employee_setId(this,idInt)&&
+        !Employee_setNombre(this,nombre)&&
+        !Employee_setHorasTrabajadas(this,horasTrabajadasInt)&&
+        !Employee_setSueldo(this,sueldoInt))
+            return this;
+    }
 
     Employee_delete(this);
     return NULL;
@@ -167,31 +170,32 @@ int Employee_addEmployeeToLL(LinkedList* pArrayListEmployee)
 {
     Employee* pEmpleado;
     int retorno = -1;
-    char bufferInt[1024];
+    int bufferInt;
     char bufferNombre[1024];
-    char bufferHorasTrabajadas[1024];
-    char bufferSueldo[1024];
+    int bufferSueldo;
+    int bufferHorasTrabajadas;
 
+    pEmpleado = Employee_new();
     //Aca debería validar con los buffers!
-
-    sprintf(bufferInt, "%d", Employee_getNextIdFromLL());
-    printf("ID: %s", bufferInt);
-    printf("\nNombre: ");
-    scanf("%s", bufferNombre);
-    printf("\nHoras trabajadas: ");
-    scanf("%s", bufferHorasTrabajadas);
-    printf("\nSueldo: ");
-    scanf("%s", bufferSueldo);
-
-    pEmpleado = Employee_newConParametros(bufferInt, bufferNombre, bufferHorasTrabajadas, bufferSueldo);
-
-    //Luego guardar en la estructura del linkedlist
-
-    if(pEmpleado != NULL)
+    if(pArrayListEmployee != NULL)
     {
-        ll_add(pArrayListEmployee, pEmpleado);
-        retorno = 0;
+        bufferInt = Employee_getNextIdFromLL();
+        myLibrary_getNombreWithMessage(bufferNombre, 1024, "\nNombre: ", "\nIngrese solo letras", 2);
+        myLibrary_getIntWithMessage(&bufferHorasTrabajadas, 1024, "\nHoras trabajadas:", "\nIngrese solo numeros", 2);
+        myLibrary_getIntWithMessage(&bufferSueldo, 1024, "\nSueldo:", "\nIngrese solo numeros", 2);
+        //Luego guardar en la estructura del linkedlist
+        if(pEmpleado != NULL)
+        {
+            Employee_setId(pEmpleado, bufferInt);
+            Employee_setNombre(pEmpleado, bufferNombre);
+            Employee_setSueldo(pEmpleado, bufferSueldo);
+            Employee_setHorasTrabajadas(pEmpleado, bufferHorasTrabajadas);
+            ll_add(pArrayListEmployee, pEmpleado);
+            retorno = 0;
+        }
     }
+
+
 
     return retorno;
 }

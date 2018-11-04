@@ -24,12 +24,10 @@ int main()
     int option = 0;
 
     LinkedList* listaEmpleados = ll_newLinkedList();
-    printf("\nSize de la lista: %d", ll_len(listaEmpleados));
 
     do{
         switch(Employee_menuEmployee())
         {
-            //Se podria crear la funcion mostrar con el get del linkedlist, no debería aparecer en ningun lado -> para acceder a los campos de la estructura
             case 1:
                 controller_loadFromText("data.csv",listaEmpleados);
                 printf("\nSize de la lista: %d", ll_len(listaEmpleados));
