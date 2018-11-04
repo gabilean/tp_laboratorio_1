@@ -58,34 +58,85 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 {
     Employee* pEmpleado = NULL;
-    char bufferInt[1024];
-    char bufferNombre[1024];
-    char bufferHorasTrabajadas[1024];
-    char bufferSueldo[1024];
-    int flagOnce = 1;
     int retorno = -1;
 
     if(pFile != NULL)
     {
         while(!feof(pFile))
         {
-            if(flagOnce)
-            {
-                flagOnce = 0;
+            pEmpleado = Employee_new();
+            fread(pEmpleado, sizeof(Employee), 1, pFile);
+            ll_add(pArrayListEmployee, pEmpleado);
+        }
 
-                fscanf(pFile, "%[^,],%[^,],%[^,],%[^\n]\n", bufferInt, bufferNombre, bufferHorasTrabajadas, bufferSueldo); //Descarta primer linea
+        retorno = 0;
+    }
+
+    return retorno;
+}
+
+/**
+
+
+*/
+
+int parser_EmployeeSavetoText(FILE* pFile, LinkedList* pArrayListEmployee)
+{
+    Employee* pEmployee = NULL;
+    int retorno = -1;
+    int i;
+    int bufferId;
+    int bufferSueldo;
+    int bufferHorasTrabajadas;
+    char bufferNombre[1024];
+
+
+    if(pFile != NULL && pArrayListEmployee != NULL)
+    {
+        for(i = 0; i < ll_len(pArrayListEmployee); i++)
+        {
+            if(i == 0)
+            {
+                fprintf(pFile, "id,nombre,horas,sueldo\n");
             }
 
-            fscanf(pFile, "%[^,],%[^,],%[^,],%[^\n]\n", bufferInt, bufferNombre, bufferHorasTrabajadas, bufferSueldo);
-            //printf("%s - %s - %s - %s\n", bufferInt, bufferNombre, bufferHorasTrabajadas, bufferSueldo);
+            pEmployee = ll_get(pArrayListEmployee, i);
+            Employee_getNombre(pEmployee, bufferNombre);
+            Employee_getId(pEmployee, &bufferId);
+            Employee_getSueldo(pEmployee, &bufferSueldo);
+            Employee_getHorasTrabajadas(pEmployee, &bufferHorasTrabajadas);
 
-            if(pEmpleado != NULL)
-            {
-                ll_add(pArrayListEmployee, pEmpleado);
-                retorno = 0;
-            }
+            fprintf(pFile, "%d, %s, %d, %d\n", bufferId, bufferNombre, bufferSueldo, bufferHorasTrabajadas);
+
+            retorno = 0;
         }
     }
 
     return retorno;
 }
+
+/**
+
+*/
+
+int parser_EmployeeSavetoBinary(FILE* pFile, LinkedList* pArrayListEmployee)
+{
+    Employee* pEmpleado = NULL;
+    FILE* pArchivo;
+    int retorno = -1;
+
+    if(pFile != NULL)
+    {
+        while(!feof(pFile))
+        {
+            pEmpleado = Employee_new();
+            fwrite(pEmpleado, sizeof(Employee), 1, pFile);
+            ll_add(pArrayListEmployee, pEmpleado);
+        }
+
+        retorno = 0;
+    }
+
+    return retorno;
+}
+

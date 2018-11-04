@@ -310,6 +310,44 @@ int Employee_showEmployees(LinkedList* pArrayListEmployee, int sizeList)
 
 */
 
+int Employee_sortEmployee(LinkedList* pArrayListEmployee)
+{
+    int opcion;
+    int retorno = -1;
+
+    if(pArrayListEmployee != NULL)
+    {
+            printf("\n1. Ordernar por nombre");
+            printf("\n2. Ordenar por sueldo");
+            printf("\n3. Ordenar por horas trabajadas");
+            printf("\n\nOpcion:");
+            scanf("%d", &opcion);
+
+            switch(opcion)
+            {
+                case 1:
+                    ll_sort(pArrayListEmployee, Employee_criterioSortNombre, 1);
+                    break;
+                case 2:
+                    ll_sort(pArrayListEmployee, Employee_criterioSortSueldo, 1);
+                    break;
+                case 3:
+                    ll_sort(pArrayListEmployee, Employee_criterioSortHoras, 1);
+                    break;
+                default:
+                    printf("\nOpcion invalida!");
+            }
+
+        retorno = 0;
+    }
+
+    return retorno;
+}
+
+/**
+
+*/
+
 int Employee_criterioSortNombre(void* thisA, void* thisB)
 {
     char nombreA[50];
@@ -324,6 +362,56 @@ int Employee_criterioSortNombre(void* thisA, void* thisB)
         retorno = 1;
     }
     else if(strcmp(nombreA, nombreB) < 0)
+    {
+        retorno = -1;
+    }
+
+    return retorno;
+}
+
+/**
+
+*/
+
+int Employee_criterioSortSueldo(void* thisA, void* thisB)
+{
+    int sueldoA;
+    int sueldoB;
+    int retorno = 0;
+
+    Employee_getSueldo(thisA, &sueldoA);
+    Employee_getSueldo(thisB, &sueldoB);
+
+    if(sueldoA > sueldoB)
+    {
+        retorno = 1;
+    }
+    else if(sueldoA < sueldoB)
+    {
+        retorno = -1;
+    }
+
+    return retorno;
+}
+
+/**
+
+*/
+
+int Employee_criterioSortHoras(void* thisA, void* thisB)
+{
+    int horasA;
+    int horasB;
+    int retorno = 0;
+
+    Employee_getHorasTrabajadas(thisA, &horasA);
+    Employee_getHorasTrabajadas(thisB, &horasB);
+
+    if(horasA > horasB)
+    {
+        retorno = 1;
+    }
+    else if(horasA < horasB)
     {
         retorno = -1;
     }

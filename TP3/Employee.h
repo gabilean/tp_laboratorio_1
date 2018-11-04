@@ -31,4 +31,7 @@ int Employee_addEmployeeToLL(LinkedList* pArrayListEmployee);
 int Employee_modifyEmployee(LinkedList* pArrayListEmployee);
 int Employee_removeEmployee(LinkedList* pArrayListEmployee);
 int Employee_showEmployees(LinkedList* pArrayListEmployee, int sizeList);
+int Employee_sortEmployee(LinkedList* pArrayListEmployee);
 int Employee_criterioSortNombre(void* thisA, void* thisB);
+int Employee_criterioSortSueldo(void* thisA, void* thisB);
+int Employee_criterioSortHoras(void* thisA, void* thisB);

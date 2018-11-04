@@ -41,7 +41,7 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
     int retorno = -1;
 
     pArchivo = fopen(path, "rb");
-    if(!parser_EmployeeFromText(pArchivo, pArrayListEmployee))
+    if(!parser_EmployeeFromBinary(pArchivo, pArrayListEmployee))
     {
         retorno = 0;
     }
@@ -127,6 +127,7 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
+    Employee_sortEmployee(pArrayListEmployee);
     return 1;
 }
 
@@ -139,7 +140,18 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+    FILE *pArchivo;
+    int retorno = -1;
+
+    pArchivo = fopen(path, "w+");
+    if(!parser_EmployeeSavetoText(pArchivo, pArrayListEmployee))
+    {
+        retorno = 0;
+    }
+
+    fclose(pArchivo);
+
+    return retorno;
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo binario).
