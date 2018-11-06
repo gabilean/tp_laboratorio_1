@@ -60,9 +60,15 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_addEmployee(LinkedList* pArrayListEmployee)
 {
-    Employee_addEmployeeToLL(pArrayListEmployee);
+    int retorno = -1;
 
-    return 1;
+    if(pArrayListEmployee != NULL)
+    {
+        Employee_addEmployeeToLL(pArrayListEmployee);
+        retorno = 0;
+    }
+
+    return retorno;
 }
 
 /** \brief Modificar datos de empleado
@@ -74,8 +80,15 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_editEmployee(LinkedList* pArrayListEmployee)
 {
-    Employee_modifyEmployee(pArrayListEmployee);
-    return 1;
+    int retorno = -1;
+
+    if(pArrayListEmployee != NULL)
+    {
+        Employee_modifyEmployee(pArrayListEmployee);
+        retorno = 0;
+    }
+
+    return retorno;
 }
 
 /** \brief Baja de empleado
@@ -87,8 +100,15 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_removeEmployee(LinkedList* pArrayListEmployee)
 {
-    Employee_removeEmployee(pArrayListEmployee);
-    return 1;
+    int retorno = -1;
+
+    if(pArrayListEmployee != NULL)
+    {
+        Employee_removeEmployee(pArrayListEmployee);
+        retorno = 0;
+    }
+
+    return retorno;
 }
 
 /** \brief Listar empleados
@@ -98,7 +118,21 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
  * \return int
  *
  */
-int controller_ListEmployee(LinkedList* pArrayListEmployee)
+
+ int controller_showEmployees(LinkedList* pArrayListEmployee, int sizeList)
+{
+    int retorno = -1;
+
+    if(pArrayListEmployee != NULL)
+    {
+        Employee_showEmployees(pArrayListEmployee, sizeList);
+        retorno = 0;
+    }
+
+    return retorno;
+}
+
+/*int controller_ListEmployee(LinkedList* pArrayListEmployee)
 {
     int retorno = -1;
     int i;
@@ -116,7 +150,7 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
     }
 
     return retorno;
-}
+}*/
 
 /** \brief Ordenar empleados
  *
@@ -127,8 +161,15 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
-    Employee_sortEmployee(pArrayListEmployee);
-    return 1;
+    int retorno = -1;
+
+    if(pArrayListEmployee != NULL)
+    {
+        Employee_sortEmployee(pArrayListEmployee);
+        retorno = 0;
+    }
+
+    return retorno;
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
@@ -175,15 +216,4 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
     fclose(pArchivo);
 
     return retorno;
-}
-
-/**
-
-*/
-
-int controller_showEmployees(LinkedList* pArrayListEmployee, int sizeList)
-{
-    Employee_showEmployees(pArrayListEmployee, sizeList);
-
-    return 1;
 }

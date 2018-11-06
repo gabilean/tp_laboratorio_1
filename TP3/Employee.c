@@ -5,6 +5,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+* \brief Asigna espacio en memoria para un empleado
+* \param void
+* \return Employee* Devuelve un puntero a Employee con espacio en memoria reservado
+*/
+
 Employee* Employee_new()
 {
     Employee* this;
@@ -12,10 +18,25 @@ Employee* Employee_new()
     return this;
 }
 
+/**
+* \brief Libera espacio en memoria
+* \param Employee* this
+* \return void
+*/
+
 void Employee_delete(Employee* this)
 {
     free(this);
 }
+
+/**
+* \brief Libera espacio en memoria
+* \param char* id
+* \param char* nombre
+* \param char* horasTrabajadas
+* \param char* sueldo
+* \return Employee* Devuelve puntero a empleado con datos seteados, si falla devuelve NULL
+*/
 
 Employee* Employee_newConParametros(char* id, char* nombre, char* horasTrabajadas, char* sueldo)
 {
@@ -43,11 +64,24 @@ Employee* Employee_newConParametros(char* id, char* nombre, char* horasTrabajada
     return NULL;
 }
 
+/**
+* \brief Obtiene siguiente ID a partir del 1001
+* \param void
+* \return int Siguiente id
+*/
+
 int Employee_getNextIdFromLL(void)
 {
     int static id = 1001;
     return id++;
 }
+
+/**
+* \brief Asigna un valor al campo id de Employee
+* \param Employee* this
+* \param int id
+* \return 0 seteo correcto, -1 seteo incorrecto
+*/
 
 int Employee_setId(Employee* this,int id)
 {
@@ -69,6 +103,13 @@ int Employee_setId(Employee* this,int id)
     return retorno;
 }
 
+/**
+* \brief Obtiene el valor del campo id de Employee
+* \param Employee* this
+* \param int id
+* \return 0 obtencion correcta, -1 obtencion incorrecta
+*/
+
 int Employee_getId(Employee* this,int* id)
 {
     int retorno=-1;
@@ -79,6 +120,13 @@ int Employee_getId(Employee* this,int* id)
     }
     return retorno;
 }
+
+/**
+* \brief Asigna un valor al campo nombre de Employee
+* \param Employee* this
+* \param char* nombre
+* \return 0 seteo correcto, -1 seteo incorrecto
+*/
 
 int Employee_setNombre(Employee* this,char* nombre)
 {
@@ -91,6 +139,13 @@ int Employee_setNombre(Employee* this,char* nombre)
     return retorno;
 }
 
+/**
+* \brief Obtiene el valor del campo nombre de Employee
+* \param Employee* this
+* \param char* nombre
+* \return 0 obtencion correcta, -1 obtencion incorrecta
+*/
+
 int Employee_getNombre(Employee* this,char* nombre)
 {
     int retorno=-1;
@@ -101,6 +156,13 @@ int Employee_getNombre(Employee* this,char* nombre)
     }
     return retorno;
 }
+
+/**
+* \brief Asigna un valor al campo horasTrabajadas de Employee
+* \param Employee* this
+* \param int horasTrabajadas
+* \return 0 seteo correcto, -1 seteo incorrecto
+*/
 
 int Employee_setHorasTrabajadas(Employee* this,int horasTrabajadas)
 {
@@ -113,6 +175,13 @@ int Employee_setHorasTrabajadas(Employee* this,int horasTrabajadas)
     return retorno;
 }
 
+/**
+* \brief Obtiene el valor del campo horasTrabajadas de Employee
+* \param Employee* this
+* \param int* horasTrabajadas
+* \return 0 obtencion correcta, -1 obtencion incorrecta
+*/
+
 int Employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas)
 {
     int retorno=-1;
@@ -123,6 +192,13 @@ int Employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas)
     }
     return retorno;
 }
+
+/**
+* \brief Asigna un valor al campo sueldo de Employee
+* \param Employee* this
+* \param int sueldo
+* \return 0 seteo correcto, -1 seteo incorrecto
+*/
 
 int Employee_setSueldo(Employee* this,int sueldo)
 {
@@ -135,6 +211,13 @@ int Employee_setSueldo(Employee* this,int sueldo)
     return retorno;
 }
 
+/**
+* \brief Obtiene el valor del campo sueldo de Employee
+* \param Employee* this
+* \param int* id
+* \return 0 obtencion correcta, -1 obtencion incorrecta
+*/
+
 int Employee_getSueldo(Employee* this,int* sueldo)
 {
     int retorno=-1;
@@ -145,6 +228,12 @@ int Employee_getSueldo(Employee* this,int* sueldo)
     }
     return retorno;
 }
+
+/**
+* \brief Muestra menu de Employee
+* \param void
+* \return int con el numero de opcion
+*/
 
 int Employee_menuEmployee(void)
 {
@@ -160,11 +249,16 @@ int Employee_menuEmployee(void)
     printf("\n8. Guardar los datos de los empleados en el archivo data.csv (modo texto)");
     printf("\n9. Guardar los datos de los empleados en el archivo data.bin (modo binario)");
     printf("\n10. Salir");
-    printf("\n\nOpcion: ");
-    scanf("%d", &opcion);
+    myLibrary_getIntWithMessage(&opcion, 1024, "\nOpcion: ", "\nIngrese solo numeros", 2);
 
     return opcion;
 }
+
+/**
+* \brief Agrega un empleado a la LinkedList
+* \param LinkedList* pArrayListEmployee
+* \return 0 carga correcta, -1 carga incorrecta
+*/
 
 int Employee_addEmployeeToLL(LinkedList* pArrayListEmployee)
 {
@@ -194,14 +288,13 @@ int Employee_addEmployeeToLL(LinkedList* pArrayListEmployee)
             retorno = 0;
         }
     }
-
-
-
     return retorno;
 }
 
 /**
-
+* \brief Modifica un empleado de la LinkedList
+* \param LinkedList* pArrayListEmployee
+* \return 0 modificacion correcta, -1 modificacion incorrecta
 */
 
 int Employee_modifyEmployee(LinkedList* pArrayListEmployee)
@@ -256,7 +349,9 @@ int Employee_modifyEmployee(LinkedList* pArrayListEmployee)
 }
 
 /**
-
+* \brief Elimina un empleado de la LinkedList
+* \param LinkedList* pArrayListEmployee
+* \return 0 eliminacion correcta, -1 eliminacion incorrecta
 */
 
 int Employee_removeEmployee(LinkedList* pArrayListEmployee)
@@ -281,8 +376,10 @@ int Employee_removeEmployee(LinkedList* pArrayListEmployee)
 }
 
 /**
-
-
+* \brief Muestra empleados de la LinkedList
+* \param LinkedList* pArrayListEmployee
+* \param int sizeList
+* \return 0 muestra correcta, -1 muestra incorrecta
 */
 
 int Employee_showEmployees(LinkedList* pArrayListEmployee, int sizeList)
@@ -290,28 +387,34 @@ int Employee_showEmployees(LinkedList* pArrayListEmployee, int sizeList)
     Employee* pEmployee;
 
     int i;
-    int retorno = 0;
+    int retorno = -1;
     char auxNombre[1024];
     int auxId;
     int auxHorasTrabajadas;
     int auxSueldo;
 
-    for(i=0; i<sizeList; i++)
+    if(pArrayListEmployee != NULL && sizeList > 0)
     {
-        pEmployee = ll_get(pArrayListEmployee, i);
-        Employee_getNombre(pEmployee, auxNombre);
-        Employee_getSueldo(pEmployee, &auxSueldo);
-        Employee_getId(pEmployee, &auxId);
-        Employee_getHorasTrabajadas(pEmployee, &auxHorasTrabajadas);
+        for(i=0; i<sizeList; i++)
+        {
+            pEmployee = ll_get(pArrayListEmployee, i);
+            Employee_getNombre(pEmployee, auxNombre);
+            Employee_getSueldo(pEmployee, &auxSueldo);
+            Employee_getId(pEmployee, &auxId);
+            Employee_getHorasTrabajadas(pEmployee, &auxHorasTrabajadas);
 
-        printf("\n%d - %s - %d - %d", auxId, auxNombre, auxHorasTrabajadas, auxSueldo);
+            printf("\n%d - %s - %d - %d", auxId, auxNombre, auxHorasTrabajadas, auxSueldo);
+        }
+
+        retorno = 0;
     }
-
     return retorno;
 }
 
 /**
-
+* \brief Ordena empleados de la LinkedList
+* \param LinkedList* pArrayListEmployee
+* \return 0 muestra correcta, -1 muestra incorrecta
 */
 
 int Employee_sortEmployee(LinkedList* pArrayListEmployee)
@@ -349,7 +452,10 @@ int Employee_sortEmployee(LinkedList* pArrayListEmployee)
 }
 
 /**
-
+* \brief Criterio de ordenamiento para empleados segun nombre de la LinkedList
+* \param void* thisA
+* \param void* thisB
+* \return 0 no se produce orden, 1 ordenamiento ascendente, -1 ordanmiento descendente
 */
 
 int Employee_criterioSortNombre(void* thisA, void* thisB)
@@ -374,7 +480,10 @@ int Employee_criterioSortNombre(void* thisA, void* thisB)
 }
 
 /**
-
+* \brief Criterio de ordenamiento para empleados segun sueldo de la LinkedList
+* \param void* thisA
+* \param void* thisB
+* \return 0 no se produce orden, 1 ordenamiento ascendente, -1 ordanmiento descendente
 */
 
 int Employee_criterioSortSueldo(void* thisA, void* thisB)
@@ -399,7 +508,10 @@ int Employee_criterioSortSueldo(void* thisA, void* thisB)
 }
 
 /**
-
+* \brief Criterio de ordenamiento para empleados segun horasTrabajadas de la LinkedList
+* \param void* thisA
+* \param void* thisB
+* \return 0 no se produce orden, 1 ordenamiento ascendente, -1 ordanmiento descendente
 */
 
 int Employee_criterioSortHoras(void* thisA, void* thisB)

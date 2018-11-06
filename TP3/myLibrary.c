@@ -220,9 +220,10 @@ int myLibrary_getFloatWithMessage(float* num, int limite, char* msg, char* msgEr
     return retorno;
 }
 
-/**
-
-*/
+/** \brief Pide un numero flotante, lo valida y lo guarda en la variable pasada por referencia
+ * \param char msg*
+ * \return int -1 si no es solo numeros, numero de entrada validado y transformado de char a int
+ */
 
 int myLibrary_getIntAsCharReturnInt(char* str)
 {

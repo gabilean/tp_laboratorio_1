@@ -48,13 +48,14 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
     return retorno;
 }
 
-/** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo binario).
+/** \brief Parsea los datos los datos de los empleados desde el archivo data.bin (modo binario).
  *
  * \param path char*
  * \param pArrayListEmployee LinkedList*
  * \return int
  *
  */
+
 int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 {
     Employee* pEmpleado = NULL;
@@ -75,10 +76,12 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
     return retorno;
 }
 
-/**
-
-
-*/
+/** \brief Parsea los datos los datos de los empleados al archivo dataBackup.csv (modo binario).
+ * \param path char*
+ * \param pArrayListEmployee LinkedList*
+ * \return int
+ *
+ */
 
 int parser_EmployeeSavetoText(FILE* pFile, LinkedList* pArrayListEmployee)
 {
@@ -115,9 +118,12 @@ int parser_EmployeeSavetoText(FILE* pFile, LinkedList* pArrayListEmployee)
     return retorno;
 }
 
-/**
-
-*/
+/** \brief Parsea los datos los datos de los empleados al archivo dataBackup.bin (modo binario).
+ * \param path char*
+ * \param pArrayListEmployee LinkedList*
+ * \return int
+ *
+ */
 
 int parser_EmployeeSavetoBinary(FILE* pFile, LinkedList* pArrayListEmployee)
 {
